@@ -94,11 +94,19 @@ func main() {
 	p := NewPolymerWithoutReaction(us)
 	ts := p.getTypes()
 
+	ch := make(chan int, 1)
+
 	shortestLength := math.MaxInt64
 	for _, t := range ts {
-		wo := NewPolymer(p.unitsWithoutType(t))
+		go func(t string) {
+			wo := NewPolymer(p.unitsWithoutType(t))
+			ch <- len(wo.resultingPolymers())
+		}(t)
+	}
 
-		if l := len(wo.resultingPolymers()); l < shortestLength {
+	for i := 0; i < len(ts); i++{
+		l := <-ch
+		if l < shortestLength {
 			shortestLength = l
 		}
 	}
