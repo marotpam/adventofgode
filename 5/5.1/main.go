@@ -25,24 +25,26 @@ type Polymer struct {
 }
 
 func NewPolymer(units []unit) *Polymer {
-	return &Polymer{initUnits(units)}
-}
+	p := &Polymer{}
 
-func initUnits(units []unit) []unit {
-	if len(units) <= 1 {
-		return units
+	for _, u := range units {
+		p.AddUnit(u)
 	}
 
-	for i := 0; i < len(units) - 1; i++ {
-		if units[i].reactsWith(units[i+1]) {
-			return initUnits(append(units[:i], units[i+2:]...))
-		}
-	}
-
-	return units
+	return p
 }
 
-func (p Polymer) resultingPolymers() string {
+func (p *Polymer) AddUnit(u unit) {
+	if len(p.units) == 0 {
+		p.units = []unit{u}
+	} else if p.units[len(p.units) - 1].reactsWith(u) {
+		p.units = p.units[:len(p.units) - 1]
+	} else {
+		p.units = append(p.units, u)
+	}
+}
+
+func (p *Polymer) resultingPolymers() string {
 	s := ""
 
 	for _, u := range p.units {
