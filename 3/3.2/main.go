@@ -32,7 +32,7 @@ type position struct {
 }
 
 type fabric struct {
-	layout [][]position
+	layout            [][]position
 	overlappingClaims map[int]bool
 }
 
@@ -43,7 +43,7 @@ func newFabric(cs []claim) fabric {
 
 	l, o := applyClaims(layout, cs)
 
-	return fabric{l, 	o}
+	return fabric{l, o}
 }
 
 func (f *fabric) nonOverlappingClaim() int {
@@ -96,7 +96,7 @@ func applyClaims(m [][]position, cs []claim) ([][]position, map[int]bool) {
 func matrixOfSize(sizeX, sizeY int) [][]position {
 	matrix := make([][]position, sizeY)
 
-	for i:= 0; i < sizeY; i++ {
+	for i := 0; i < sizeY; i++ {
 		matrix[i] = make([]position, sizeX)
 	}
 
@@ -111,7 +111,7 @@ func getDimensions(cs []claim) (int, int) {
 			maxX = x
 		}
 
-		y:= c.top + c.tall
+		y := c.top + c.tall
 		if y > maxY {
 			maxY = y
 		}

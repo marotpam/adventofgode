@@ -13,17 +13,16 @@ func entryFromLine(line string) entry {
 
 	_, err := fmt.Sscanf(line, `[%d-%d-%d %d:%d] wakes up`, &year, &month, &day, &hour, &minute)
 	if err == nil {
-		return 	entry{year, month, day, hour, minute, "wakes_up", 0}
+		return entry{year, month, day, hour, minute, "wakes_up", 0}
 	}
 
 	_, err = fmt.Sscanf(line, `[%d-%d-%d %d:%d] falls asleep`, &year, &month, &day, &hour, &minute)
 	if err == nil {
-		return 	entry{year, month, day, hour, minute, "falls_asleep", 0}
+		return entry{year, month, day, hour, minute, "falls_asleep", 0}
 	}
 
-
 	fmt.Sscanf(line, `[%d-%d-%d %d:%d] Guard #%d begins shift`, &year, &month, &day, &hour, &minute, &guardID)
-	return 	entry{year, month, day, hour, minute, "begin_shift", guardID}
+	return entry{year, month, day, hour, minute, "begin_shift", guardID}
 }
 
 func readEntries() []entry {
@@ -41,7 +40,7 @@ func readEntries() []entry {
 }
 
 type guard struct {
-	id int
+	id              int
 	sleepingMinutes []int
 }
 
@@ -89,7 +88,7 @@ func newGuard(id int) guard {
 type entry struct {
 	year, month, day, hour, minute int
 	action                         string
-	guardID int
+	guardID                        int
 }
 
 func (e *entry) isForSameDay(other entry) bool {
@@ -106,7 +105,7 @@ func (e *entry) happenedBefore(other entry) bool {
 
 type scheduler struct {
 	entries []entry
-	guards map[int]guard
+	guards  map[int]guard
 }
 
 func (s scheduler) calculate() int {
@@ -135,7 +134,7 @@ func (s scheduler) calculate() int {
 		}
 	}
 	fmt.Println(guardWithMostMinutes.id, guardWithMostMinutes.mostLikelyMinuteToBeAsleep())
-	return guardWithMostMinutes.id*guardWithMostMinutes.mostLikelyMinuteToBeAsleep()
+	return guardWithMostMinutes.id * guardWithMostMinutes.mostLikelyMinuteToBeAsleep()
 }
 
 func newScheduler(entries []entry) scheduler {
@@ -144,7 +143,7 @@ func newScheduler(entries []entry) scheduler {
 
 func main() {
 	entries := readEntries()
-	sort.Slice(entries, func(i, j int) bool { return entries[i].happenedBefore(entries[j])})
+	sort.Slice(entries, func(i, j int) bool { return entries[i].happenedBefore(entries[j]) })
 
 	s := newScheduler(entries)
 	fmt.Println(s.calculate()) // 3499*39=136461

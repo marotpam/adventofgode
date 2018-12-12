@@ -67,7 +67,7 @@ func TestASliceOfUnorderedEntriesCanBeSortedByOccurrence(t *testing.T) {
 		entry{2018, 12, 06, 05, 01, "action", 0},
 	}
 
-	sort.Slice(unorderedEntries, func(i, j int) bool { return unorderedEntries[i].happenedBefore(unorderedEntries[j])})
+	sort.Slice(unorderedEntries, func(i, j int) bool { return unorderedEntries[i].happenedBefore(unorderedEntries[j]) })
 
 	if !reflect.DeepEqual(unorderedEntries, orderedEntries) {
 		t.Errorf("Failed asserting that \n%+v is \n%+v\n", unorderedEntries, orderedEntries)
@@ -76,23 +76,23 @@ func TestASliceOfUnorderedEntriesCanBeSortedByOccurrence(t *testing.T) {
 
 func TestASliceOfUnorderedEntriesCanBeSorted(t *testing.T) {
 	unorderedEntries := []entry{
-		{year:1518, month:4, day:15, hour:0, minute:17, action:""},
-		{year:1518, month:5, day:8, hour:0, minute:52, action:""},
-		{year:1518, month:10, day:3, hour:0, minute:32, action:""},
-		{year:1518, month:7, day:5, hour:0, minute:51, action:""},
-		{year:1518, month:6, day:9, hour:0, minute:16, action:""},
-		{year:1518, month:4, day:28, hour:0, minute:43, action:""},
-		{year:1518, month:7, day:9, hour:0, minute:38, action:""},
+		{year: 1518, month: 4, day: 15, hour: 0, minute: 17, action: ""},
+		{year: 1518, month: 5, day: 8, hour: 0, minute: 52, action: ""},
+		{year: 1518, month: 10, day: 3, hour: 0, minute: 32, action: ""},
+		{year: 1518, month: 7, day: 5, hour: 0, minute: 51, action: ""},
+		{year: 1518, month: 6, day: 9, hour: 0, minute: 16, action: ""},
+		{year: 1518, month: 4, day: 28, hour: 0, minute: 43, action: ""},
+		{year: 1518, month: 7, day: 9, hour: 0, minute: 38, action: ""},
 	}
 
 	orderedEntries := []entry{
-		{year:1518, month:4, day:15, hour:0, minute:17, action:""},
-		{year:1518, month:4, day:28, hour:0, minute:43, action:""},
-		{year:1518, month:5, day:8, hour:0, minute:52, action:""},
-		{year:1518, month:6, day:9, hour:0, minute:16, action:""},
-		{year:1518, month:7, day:5, hour:0, minute:51, action:""},
-		{year:1518, month:7, day:9, hour:0, minute:38, action:""},
-		{year:1518, month:10, day:3, hour:0, minute:32, action:""},
+		{year: 1518, month: 4, day: 15, hour: 0, minute: 17, action: ""},
+		{year: 1518, month: 4, day: 28, hour: 0, minute: 43, action: ""},
+		{year: 1518, month: 5, day: 8, hour: 0, minute: 52, action: ""},
+		{year: 1518, month: 6, day: 9, hour: 0, minute: 16, action: ""},
+		{year: 1518, month: 7, day: 5, hour: 0, minute: 51, action: ""},
+		{year: 1518, month: 7, day: 9, hour: 0, minute: 38, action: ""},
+		{year: 1518, month: 10, day: 3, hour: 0, minute: 32, action: ""},
 	}
 
 	sort.Slice(unorderedEntries, func(i, j int) bool {

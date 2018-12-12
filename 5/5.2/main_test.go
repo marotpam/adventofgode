@@ -7,12 +7,12 @@ import (
 
 func TestGetPolymerTypes(t *testing.T) {
 	type testCase struct {
-		input string
+		input          string
 		expectedOutput []string
-		description string
+		description    string
 	}
 
-	tcs :=  []testCase{
+	tcs := []testCase{
 		{
 			"bAB",
 			[]string{"b", "a"},
@@ -35,7 +35,7 @@ func TestGetPolymerTypes(t *testing.T) {
 }
 
 func TestPolymerUnitsWithoutType(t *testing.T) {
-	p := NewPolymerWithoutReaction([]unit{{"a"}, {"A"}, { "B"}})
+	p := NewPolymerWithoutReaction([]unit{{"a"}, {"A"}, {"B"}})
 
 	if res := p.unitsWithoutType("a"); !reflect.DeepEqual([]unit{{"B"}}, res) {
 		t.Errorf("Should only contain B, got %s", res)

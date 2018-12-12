@@ -36,5 +36,5 @@ func main() {
 		totalThrice += tr
 	}
 
-	fmt.Println(totalTwice*totalThrice) // 248*29=7192
+	fmt.Println(totalTwice * totalThrice) // 248*29=7192
 }

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func readNumbers() []int{
+func readNumbers() []int {
 	n := []int{}
 	fileHandle, _ := os.Open("input.txt")
 	defer fileHandle.Close()

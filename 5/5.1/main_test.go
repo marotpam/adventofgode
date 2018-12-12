@@ -31,29 +31,29 @@ func TestUnitsWithSameTypeAndDifferentPolarityDontReact(t *testing.T) {
 
 func TestResultingPolymer(t *testing.T) {
 	type testCase struct {
-		input string
+		input          string
 		expectedOutput string
-		description string
+		description    string
 	}
 
-	tcs :=  []testCase{
+	tcs := []testCase{
 		{
 			"dabAcCaCBAcCcaDA",
 			"dabCBAcaDA",
 			"complicated",
-		},{
+		}, {
 			"bAaB",
 			"",
 			"reacting ends",
-		},{
+		}, {
 			"bAa",
 			"b",
 			"reacting suffix",
-		},{
+		}, {
 			"Aa",
 			"",
 			"only reacting units",
-		},{
+		}, {
 			"Ab",
 			"Ab",
 			"non reacting units",

@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func readBoxIDs() []string{
+func readBoxIDs() []string {
 	ids := []string{}
 	fileHandle, _ := os.Open("input.txt")
 	defer fileHandle.Close()
@@ -21,7 +21,7 @@ func readBoxIDs() []string{
 
 func onlyMatching(first, second string) string {
 	difs := []string{}
-	for i:= 0; i < len(first); i++ {
+	for i := 0; i < len(first); i++ {
 		if first[i] == second[i] {
 			difs = append(difs, string(second[i]))
 		}
@@ -35,7 +35,7 @@ func findAlmostIdentical() string {
 	for i := 0; i < len(ids); i++ {
 		for j := i + 1; j < len(ids); j++ {
 			m := onlyMatching(ids[i], ids[j])
-			if len(ids[i]) - len(m) == 1 {
+			if len(ids[i])-len(m) == 1 {
 				return m
 			}
 		}
@@ -45,5 +45,5 @@ func findAlmostIdentical() string {
 }
 
 func main() {
-	fmt.Println(findAlmostIdentical())  // mbruvapghxlzycbhmfqjonsie
+	fmt.Println(findAlmostIdentical()) // mbruvapghxlzycbhmfqjonsie
 }

@@ -38,8 +38,8 @@ func NewPolymer(units []unit) *Polymer {
 func (p *Polymer) AddUnit(u unit) {
 	if len(p.units) == 0 {
 		p.units = []unit{u}
-	} else if p.units[len(p.units) - 1].reactsWith(u) {
-		p.units = p.units[:len(p.units) - 1]
+	} else if p.units[len(p.units)-1].reactsWith(u) {
+		p.units = p.units[:len(p.units)-1]
 	} else {
 		p.units = append(p.units, u)
 	}
@@ -73,7 +73,7 @@ func (p Polymer) getTypes() []string {
 func (p Polymer) unitsWithoutType(t string) []unit {
 	r := []unit{}
 
-	for _, u := range p.units{
+	for _, u := range p.units {
 		if !u.hasType(t) {
 			r = append(r, u)
 		}
@@ -106,7 +106,7 @@ func main() {
 		}(t)
 	}
 
-	for i := 0; i < len(ts); i++{
+	for i := 0; i < len(ts); i++ {
 		l := <-ch
 		if l < shortestLength {
 			shortestLength = l

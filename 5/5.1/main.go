@@ -37,8 +37,8 @@ func NewPolymer(units []unit) *Polymer {
 func (p *Polymer) AddUnit(u unit) {
 	if len(p.units) == 0 {
 		p.units = []unit{u}
-	} else if p.units[len(p.units) - 1].reactsWith(u) {
-		p.units = p.units[:len(p.units) - 1]
+	} else if p.units[len(p.units)-1].reactsWith(u) {
+		p.units = p.units[:len(p.units)-1]
 	} else {
 		p.units = append(p.units, u)
 	}

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func readNumbers() []int{
+func readNumbers() []int {
 	n := []int{}
 	fileHandle, _ := os.Open("input.txt")
 	defer fileHandle.Close()
@@ -26,7 +26,7 @@ func findRepeatedFrequency() int {
 	total := 0
 	frequencies[total] = true
 	numbers := readNumbers()
-	for ;; {
+	for {
 		for _, n := range numbers {
 			total += n
 			if frequencies[total] {
