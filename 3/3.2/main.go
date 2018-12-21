@@ -28,7 +28,7 @@ func readClaims() []claim {
 }
 
 type position struct {
-	cs []int
+	claims []int
 }
 
 type fabric struct {
@@ -49,10 +49,8 @@ func newFabric(cs []claim) fabric {
 func (f *fabric) nonOverlappingClaim() int {
 	res := -1
 	for id, overlaps := range f.overlappingClaims {
-		fmt.Println(id, overlaps)
 		if !overlaps {
 			res = id
-			fmt.Printf("%d doesnt overlap\n", res)
 		}
 	}
 
@@ -63,7 +61,7 @@ func (f *fabric) countOverlapping() int {
 	count := 0
 	for i := 0; i < len(f.layout); i++ {
 		for j := 0; j < len(f.layout[0]); j++ {
-			if len(f.layout[i][j].cs) > 1 {
+			if len(f.layout[i][j].claims) > 1 {
 				count++
 			}
 		}
@@ -78,13 +76,15 @@ func applyClaims(m [][]position, cs []claim) ([][]position, map[int]bool) {
 	for _, c := range cs {
 		for i := 0; i < c.tall; i++ {
 			for j := 0; j < c.wide; j++ {
-				withClaims[c.top+i][c.left+j].cs = append(withClaims[c.top+i][c.left+j].cs, c.id)
-				if len(withClaims[c.top+i][c.left+j].cs) > 1 {
-					for _, o := range withClaims[c.top+i][c.left+j].cs {
+				withClaims[c.top+i][c.left+j].claims = append(withClaims[c.top+i][c.left+j].claims, c.id)
+				if len(withClaims[c.top+i][c.left+j].claims) > 1 {
+					for _, o := range withClaims[c.top+i][c.left+j].claims {
 						overlapping[o] = true
 					}
 				} else {
-					overlapping[c.id] = false
+					if _, ok := overlapping[c.id]; !ok {
+						overlapping[c.id] = false
+					}
 				}
 			}
 		}
@@ -123,6 +123,5 @@ func getDimensions(cs []claim) (int, int) {
 func main() {
 	f := newFabric(readClaims())
 
-	//fmt.Println(f.nonOverlappingClaim())
-	fmt.Println(f.countOverlapping())
+	fmt.Println(f.nonOverlappingClaim()) // 382
 }
