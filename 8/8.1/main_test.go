@@ -77,7 +77,7 @@ func TestItCanCountMetadataEntriesOfTreeWithMultipleLevelsOfNodes(t *testing.T) 
 }
 
 func TestCreatingATreeWithOnlyOneLeafWithOneMetadataEntry(t *testing.T) {
-	input := newStack([]int{0, 1, 10})
+	input := newNumbers([]int{0, 1, 10})
 
 	root := newNode(input)
 
@@ -86,7 +86,7 @@ func TestCreatingATreeWithOnlyOneLeafWithOneMetadataEntry(t *testing.T) {
 }
 
 func TestCreatingATreeWithOnlyOneLeafWithMultipleMetadataEntries(t *testing.T) {
-	input := newStack([]int{0, 3, 10, 20, 30})
+	input := newNumbers([]int{0, 3, 10, 20, 30})
 
 	root := newNode(input)
 
@@ -95,7 +95,7 @@ func TestCreatingATreeWithOnlyOneLeafWithMultipleMetadataEntries(t *testing.T) {
 }
 
 func TestCreatingATreeWithARootWithOneChildrenWithOneMetadataEntryEach(t *testing.T) {
-	input := newStack([]int{1, 1, 0, 1, 20, 10})
+	input := newNumbers([]int{1, 1, 0, 1, 20, 10})
 
 	root := newNode(input)
 
@@ -107,7 +107,7 @@ func TestCreatingATreeWithARootWithOneChildrenWithOneMetadataEntryEach(t *testin
 }
 
 func TestCreatingATreeWithARootWithOneChildrenWithMultipleMetadataEntries(t *testing.T) {
-	input := newStack([]int{1, 2, 0, 3, 20, 1, 2, 10, 30})
+	input := newNumbers([]int{1, 2, 0, 3, 20, 1, 2, 10, 30})
 
 	root := newNode(input)
 
@@ -119,7 +119,7 @@ func TestCreatingATreeWithARootWithOneChildrenWithMultipleMetadataEntries(t *tes
 }
 
 func TestCreatingATreeWithMultipleLevelsOfSingleNodes(t *testing.T) {
-	input := newStack([]int{1, 1, 1, 1,  0, 1, 15, 20, 10})
+	input := newNumbers([]int{1, 1, 1, 1,  0, 1, 15, 20, 10})
 
 	root := newNode(input)
 
@@ -136,7 +136,7 @@ func TestCreatingATreeWithMultipleLevelsOfSingleNodes(t *testing.T) {
 }
 
 func TestCreatingATreeWithARootWithTwoChildren(t *testing.T) {
-	input := newStack([]int{2, 1, 0, 1, 20, 0, 1, 15, 10})
+	input := newNumbers([]int{2, 1, 0, 1, 20, 0, 1, 15, 10})
 
 	root := newNode(input)
 

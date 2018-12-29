@@ -60,7 +60,7 @@ func TestCountingMetadataForANodeWithChildrenThatAreReferencedByItsMetadataEntri
 }
 
 func TestCountingMetadataForGivenExample(t *testing.T) {
-	input := newStack([]int{2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2})
+	input := newNumbers([]int{2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2})
 
 	root := newNode(input)
 

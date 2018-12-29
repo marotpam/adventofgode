@@ -17,22 +17,50 @@ type node struct {
 	metadata []int
 }
 
-type stack struct {
-	values []int
+type number struct {
+	value int
+	next *number
 }
 
-func newStack(ints []int) *stack {
-	return &stack{ints}
+type numbers struct {
+	first, last *number
 }
 
-func (s *stack) pop() int {
-	last := s.values[0]
-	s.values = s.values[1:]
+func newNumbers(ints []int) *numbers {
+	ns := &numbers{}
+	if len(ints) > 0 {
+		n := &number{value: ints[0]}
+		previous := n
+		ns.first = n
+		for i:= 1; i < len(ints); i++ {
+			n = &number{value: ints[i]}
+			previous.next = n
+		}
+		ns.last = n
+	}
 
-	return last
+	return ns
 }
 
-func newNode(s *stack) node {
+func (s *numbers) add(i int) {
+	n := &number{value: i}
+	if s.first == nil {
+		s.first = n
+	}
+	if s.last != nil {
+		s.last.next = n
+	}
+	s.last = n
+}
+
+func (s *numbers) pop() int {
+	first := s.first.value
+	s.first = s.first.next
+
+	return first
+}
+
+func newNode(s *numbers) node {
 	rootHeader := header{
 		s.pop(),
 		s.pop(),
@@ -80,14 +108,14 @@ func (n *node) countMetadata() int {
 func main() {
 	bs, _ := ioutil.ReadFile("input.txt")
 
-	var ints []int
+	numbers := newNumbers([]int{})
 	for _, p := range bytes.Fields(bs) {
 		n, _ := strconv.Atoi(string(p))
 
-		ints = append(ints, n)
+		numbers.add(n)
 	}
 
-	n := newNode(newStack(ints))
+	n := newNode(numbers)
 
 	fmt.Println(n.countMetadata()) // 22198
 }
