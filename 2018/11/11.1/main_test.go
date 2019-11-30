@@ -4,7 +4,7 @@ import "testing"
 
 func TestCalculatingThePowerOfFuelCells(t *testing.T) {
 	type testCase struct {
-		cell cell
+		cell          cell
 		expectedPower int
 	}
 
