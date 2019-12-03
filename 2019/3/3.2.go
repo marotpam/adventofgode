@@ -6,7 +6,8 @@ import (
 )
 
 type pointWithSteps struct {
-	x, y, steps int
+	point
+	steps int
 }
 
 func FindSecondDistanceToIntersectionPoint(first, second []string) int {
@@ -15,8 +16,8 @@ func FindSecondDistanceToIntersectionPoint(first, second []string) int {
 
 	minDistance := math.MaxInt64
 	for _, p := range firstPoints {
-		s := findIntersectionPoint(secondPoints, p)
-		if s != nil {
+		s, ok := secondPoints[p.key()]
+		if ok {
 			d := p.steps + s.steps
 			if d < minDistance {
 				minDistance = d
@@ -26,8 +27,8 @@ func FindSecondDistanceToIntersectionPoint(first, second []string) int {
 	return minDistance
 }
 
-func findPointsWithStepsInPath(directions []string) []pointWithSteps {
-	var points []pointWithSteps
+func findPointsWithStepsInPath(directions []string) map[string]pointWithSteps {
+	points := make(map[string]pointWithSteps, 0)
 	x, y := 0, 0
 	totalSteps := 0
 	for _, d := range directions {
@@ -47,21 +48,15 @@ func findPointsWithStepsInPath(directions []string) []pointWithSteps {
 			totalSteps++
 			x += incX
 			y += incY
-			points = append(points, pointWithSteps{
-				x:     x,
-				y:     y,
+			p := pointWithSteps{
+				point: point{
+					x: x,
+					y: y,
+				},
 				steps: totalSteps,
-			})
+			}
+			points[p.key()] = p
 		}
 	}
 	return points
-}
-
-func findIntersectionPoint(points []pointWithSteps, searched pointWithSteps) *pointWithSteps {
-	for _, p := range points {
-		if p.x == searched.x && p.y == searched.y {
-			return &p
-		}
-	}
-	return nil
 }

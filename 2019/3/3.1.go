@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 )
@@ -18,6 +19,10 @@ type point struct {
 
 func (p *point) hammingDistance() int {
 	return abs(p.x) + abs(p.y)
+}
+
+func (p *point) key() string {
+	return fmt.Sprintf("%dX%dY", p.x, p.y)
 }
 
 func abs(i int) int {
@@ -42,8 +47,8 @@ func FindFirstDistanceToIntersectionPoint(first, second []string) int {
 	return minDistance
 }
 
-func findPointsInPath(directions []string) []point {
-	var points []point
+func findPointsInPath(directions []string) map[string]point {
+	points := make(map[string]point, 0)
 	x, y := 0, 0
 	for _, d := range directions {
 		steps, _ := strconv.Atoi(d[1:])
@@ -61,30 +66,23 @@ func findPointsInPath(directions []string) []point {
 		for i := 0; i < steps; i++ {
 			x += incX
 			y += incY
-			points = append(points, point{
+			p := point{
 				x: x,
 				y: y,
-			})
+			}
+			points[p.key()] = p
 		}
 	}
 	return points
 }
 
-func findIntersections(first, second []point) []point {
+func findIntersections(first, second map[string]point) []point {
 	intersections := []point{}
 	for _, p := range first {
-		if containsPoint(second, p) {
+		_, ok := second[p.key()]
+		if ok {
 			intersections = append(intersections, p)
 		}
 	}
 	return intersections
-}
-
-func containsPoint(points []point, searched point) bool {
-	for _, p := range points {
-		if p.x == searched.x && p.y == searched.y {
-			return true
-		}
-	}
-	return false
 }
