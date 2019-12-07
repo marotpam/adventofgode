@@ -35,7 +35,7 @@ func calculateFirstOptimalThrusterSequenceWithInputs(inputs []int, sequence []in
 		input := &fakeInput{inputs: []int{s, inputSignal}}
 		output := &fakeOutput{}
 
-		CalculateSecondOpcode(inputs, input, output)
+		CalculateSecondOpcode(inputs, input, output, 0)
 
 		outputSignal = output.outputs[len(output.outputs)-1]
 		inputSignal = outputSignal
@@ -100,8 +100,8 @@ func (o *fakeOutput) write(n int) {
 	o.outputs = append(o.outputs, n)
 }
 
-func CalculateSecondOpcode(ints []int, in input, out output) []int {
-	for i := 0; ints[i]%100 != opHalt; {
+func CalculateSecondOpcode(ints []int, in input, out output, start int) int {
+	for i := start; ints[i]%100 != opHalt; {
 		opCode := ints[i] % 100
 		parameters := getSecondParameters(opCode, ints[i]/100)
 		newPosition := -1
@@ -127,6 +127,7 @@ func CalculateSecondOpcode(ints []int, in input, out output) []int {
 				v = ints[v]
 			}
 			out.write(v)
+			return i + len(parameters) + 1
 		case opJumpIfTrue:
 			a := ints[i+1]
 			if parameters[0] == paramModePosition {
@@ -162,7 +163,7 @@ func CalculateSecondOpcode(ints []int, in input, out output) []int {
 			i = newPosition
 		}
 	}
-	return ints
+	return -1
 }
 
 func getSecondParameters(opCode int, instruction int) []int {
