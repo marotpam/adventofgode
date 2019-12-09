@@ -10,58 +10,24 @@ const (
 func CalculateSecondOpcode(ints []int, in input, out output) []int {
 	for i := 0; ints[i]%100 != opHalt; {
 		opCode := ints[i] % 100
-		parameters := getSecondParameters(opCode, ints[i]/100)
+		parameters := getSecondParameters(ints, i)
 		newPosition := -1
 
 		switch opCode {
 		case opAdd, opMultiply, opEquals, opLessThan:
-			a := ints[i+1]
-			if parameters[0] == paramModePosition {
-				a = ints[a]
+			ints[ints[i+3]] = calculateSecondArithmeticOp(opCode, parameters[0], parameters[1])
+		case opJumpIfTrue:
+			if parameters[0] != 0 {
+				newPosition = parameters[1]
 			}
-
-			b := ints[i+2]
-			if parameters[1] == paramModePosition {
-				b = ints[b]
+		case opJumpIfFalse:
+			if parameters[0] == 0 {
+				newPosition = parameters[1]
 			}
-
-			ints[ints[i+3]] = calculateSecondArithmeticOp(opCode, a, b)
 		case opInput:
 			ints[ints[i+1]] = in.read()
 		case opOutput:
-			v := ints[i+1]
-			if parameters[0] == paramModePosition {
-				v = ints[v]
-			}
-			out.write(v)
-		case opJumpIfTrue:
-			a := ints[i+1]
-			if parameters[0] == paramModePosition {
-				a = ints[a]
-			}
-
-			b := ints[i+2]
-			if parameters[1] == paramModePosition {
-				b = ints[b]
-			}
-
-			if a != 0 {
-				newPosition = b
-			}
-		case opJumpIfFalse:
-			a := ints[i+1]
-			if parameters[0] == paramModePosition {
-				a = ints[a]
-			}
-
-			b := ints[i+2]
-			if parameters[1] == paramModePosition {
-				b = ints[b]
-			}
-
-			if a == 0 {
-				newPosition = b
-			}
+			out.write(parameters[0])
 		}
 		i += len(parameters) + 1
 
@@ -72,7 +38,10 @@ func CalculateSecondOpcode(ints []int, in input, out output) []int {
 	return ints
 }
 
-func getSecondParameters(opCode int, instruction int) []int {
+func getSecondParameters(instructions []int, position int) []int {
+	opCode := instructions[position] % 100
+	instruction := instructions[position] / 100
+
 	var size int
 	switch opCode {
 	case opAdd, opMultiply, opEquals, opLessThan:
@@ -82,9 +51,15 @@ func getSecondParameters(opCode int, instruction int) []int {
 	default:
 		size = 1
 	}
+
 	p := make([]int, size)
 	for i := 0; i < size; i++ {
-		p[i] = instruction % 10
+		v := instructions[position+i+1]
+		if instruction%10 == paramModePosition {
+			v = instructions[v]
+		}
+
+		p[i] = v
 		instruction = instruction / 10
 	}
 	return p
