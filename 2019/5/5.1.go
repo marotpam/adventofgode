@@ -7,8 +7,8 @@ const (
 	opOutput   = 4
 	opHalt     = 99
 
-	paramModePosition = 0
-	paramModeImmediate    = 1
+	paramModePosition  = 0
+	paramModeImmediate = 1
 )
 
 type input interface {
@@ -21,45 +21,40 @@ type output interface {
 
 func CalculateFirstOpcode(ints []int, in input, out output) []int {
 	for i := 0; ints[i]%100 != opHalt; {
-		opCode := ints[i] % 100
-		parameters := getParameters(opCode, ints[i]/100)
-		switch opCode {
+		args := getArguments(ints, i)
+		switch ints[i] % 100 {
 		case opAdd, opMultiply:
-			a := ints[i+1]
-			if parameters[0] == paramModePosition {
-				a = ints[a]
-			}
-
-			b := ints[i+2]
-			if parameters[1] == paramModePosition {
-				b = ints[b]
-			}
-
-			ints[ints[i+3]] = calculateArithmeticOp(opCode, a, b)
+			ints[ints[i+3]] = calculateArithmeticOp(ints[i]%100, args[0], args[1])
 		case opInput:
 			ints[ints[i+1]] = in.read()
 		case opOutput:
-			v := ints[i+1]
-			if parameters[0] == paramModePosition {
-				v = ints[v]
-			}
-			out.write(v)
+			out.write(args[0])
 		}
-		i += len(parameters) + 1
+		i += len(args) + 1
 	}
 	return ints
 }
 
-func getParameters(opCode int, instruction int) []int {
+func getArguments(instructions []int, position int) []int {
+	opCode := instructions[position] % 100
+	instruction := instructions[position] / 100
+
 	size := 1
 	if opCode == opAdd || opCode == opMultiply {
 		size = 3
 	}
+
 	p := make([]int, size)
 	for i := 0; i < size; i++ {
-		p[i] = instruction % 10
+		v := instructions[position+i+1]
+		if instruction%10 == paramModePosition {
+			v = instructions[v]
+		}
+
+		p[i] = v
 		instruction = instruction / 10
 	}
+
 	return p
 }
 
