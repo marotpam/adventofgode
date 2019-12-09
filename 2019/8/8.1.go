@@ -27,5 +27,10 @@ func CalculateFirstMultiplication(s string, width, height int) int {
 		}
 		l.digits[r] = l.digits[r] + 1
 	}
+	zerosInLayer := l.digits['0']
+	if zerosInLayer > 0 && zerosInLayer < minCountOfZeros {
+		result = l.digits['1']*l.digits['2']
+		minCountOfZeros = zerosInLayer
+	}
 	return result
 }
