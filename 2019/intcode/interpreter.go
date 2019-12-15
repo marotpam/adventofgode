@@ -1,4 +1,4 @@
-package main
+package interpreter
 
 const (
 	opAdd                = 1
@@ -18,11 +18,11 @@ const (
 )
 
 type Reader interface {
-	read() int
+	Read() int
 }
 
 type Writer interface {
-	write(int)
+	Write(int)
 }
 
 type Interpreter struct {
@@ -87,9 +87,9 @@ func (in *Interpreter) Run(instructions []int, reader Reader, writer Writer) {
 				newPosition = operands[1]
 			}
 		case opInput:
-			in.memory[offset] = reader.read()
+			in.memory[offset] = reader.Read()
 		case opOutput:
-			writer.write(operands[0])
+			writer.Write(operands[0])
 		case opAdjustRelativeBase:
 			in.relativeBase += operands[0]
 		}

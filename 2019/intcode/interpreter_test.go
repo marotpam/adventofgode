@@ -1,4 +1,4 @@
-package main
+package interpreter
 
 import (
 	"reflect"
@@ -10,7 +10,7 @@ type fakeInput struct {
 	inputs []int
 }
 
-func (i *fakeInput) read() int {
+func (i *fakeInput) Read() int {
 	a, rest := i.inputs[0], i.inputs[1:]
 	i.inputs = rest
 
@@ -21,7 +21,7 @@ type fakeOutput struct {
 	outputs []int
 }
 
-func (o *fakeOutput) write(n int) {
+func (o *fakeOutput) Write(n int) {
 	o.outputs = append(o.outputs, n)
 }
 
