@@ -3,7 +3,7 @@ package main
 import (
 	"math"
 
-	interpreter "github.com/marotpam/adventofgode/2019/intcode"
+	"github.com/marotpam/adventofgode/2019/intcode"
 )
 
 const (
@@ -35,7 +35,7 @@ func (p *position) isToTheLeftOf(other position) bool {
 }
 
 type arcade struct {
-	interpreter      *interpreter.Interpreter
+	interpreter      *intcode.Interpreter
 	pixels           map[position]int
 	outputAction     int
 	position         position
@@ -97,7 +97,7 @@ func (a *arcade) countTilesOfType(tile int) int {
 
 func newArcade() *arcade {
 	return &arcade{
-		interpreter:  interpreter.NewInterpreter(),
+		interpreter:  intcode.NewInterpreter(),
 		pixels:       make(map[position]int, 0),
 		outputAction: outputActionX,
 		score:        0,

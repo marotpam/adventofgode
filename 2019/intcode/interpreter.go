@@ -1,4 +1,4 @@
-package interpreter
+package intcode
 
 const (
 	opAdd                = 1

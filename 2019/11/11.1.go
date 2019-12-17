@@ -1,7 +1,7 @@
 package main
 
 import (
-	interpreter "github.com/marotpam/adventofgode/2019/intcode"
+	"github.com/marotpam/adventofgode/2019/intcode"
 )
 
 const (
@@ -29,7 +29,7 @@ type position struct {
 }
 
 type robot struct {
-	interpreter   *interpreter.Interpreter
+	interpreter   *intcode.Interpreter
 	direction     direction
 	position      position
 	paintedPanels map[position]int
@@ -69,7 +69,7 @@ func newRobot() *robot {
 			x: 0,
 			y: 0,
 		},
-		interpreter:   interpreter.NewInterpreter(),
+		interpreter:   intcode.NewInterpreter(),
 		outputAction:  outputActionPaint,
 		paintedPanels: make(map[position]int, 0),
 	}
