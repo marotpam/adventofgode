@@ -52,13 +52,13 @@ func newDrone(maxPosition position) *drone {
 
 func (d *drone) work(instructions []int) {
 	for d.currentPosition.y < d.maxPosition.y {
-		d.interpreter.Run(instructions, d, d)
+		for d.currentPosition.x < d.maxPosition.x {
+			d.interpreter.Run(instructions, d, d)
 
-		d.currentPosition.x += 1
-		if d.currentPosition.x == d.maxPosition.x {
-			d.currentPosition.x = 0
-			d.currentPosition.y++
+			d.currentPosition.x++
 		}
+		d.currentPosition.x = 0
+		d.currentPosition.y++
 	}
 }
 
