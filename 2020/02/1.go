@@ -8,11 +8,11 @@ import (
 )
 
 func CountValidPasswords1(rawInput string) int {
-	passwords := parse(rawInput)
+	lines := parse(rawInput)
 
 	c := 0
-	for _, p := range passwords {
-		if p.isValid() {
+	for _, l := range lines {
+		if l.password.isValid(l.policy) {
 			c++
 		}
 	}
@@ -22,29 +22,31 @@ func CountValidPasswords1(rawInput string) int {
 
 type policy struct {
 	minOccurrences, maxOccurrences int
-	letter rune
+	letter                         rune
 }
 
-type password struct {
-	policy policy
-	password string
+type password string
+
+type line struct {
+	policy   policy
+	password password
 }
 
-func (p password) isValid() bool {
+func (p password) isValid(policy policy) bool {
 	occurrences := map[rune]int{}
 
-	for _, l := range p.password {
+	for _, l := range p {
 		occurrences[l]++
-		if l == p.policy.letter && occurrences[l] > p.policy.maxOccurrences{
+		if l == policy.letter && occurrences[l] > policy.maxOccurrences {
 			return false
 		}
 	}
 
-	return occurrences[p.policy.letter] >= p.policy.minOccurrences
+	return occurrences[policy.letter] >= policy.minOccurrences
 }
 
-func parse(input string) []password {
-	passwords := make([]password, 0)
+func parse(input string) []line {
+	passwords := make([]line, 0)
 
 	scanner := bufio.NewScanner(strings.NewReader(input))
 	for scanner.Scan() {
@@ -55,15 +57,15 @@ func parse(input string) []password {
 
 		var min, max int
 		var letter rune
-		var pass string
+		var pass password
 
 		_, err := fmt.Sscanf(text, `%d-%d %c: %s`, &min, &max, &letter, &pass)
 		if err != nil {
 			log.Fatal("cannot read", err)
 		}
 
-		passwords = append(passwords, password{
-			policy:   policy{
+		passwords = append(passwords, line{
+			policy: policy{
 				minOccurrences: min,
 				maxOccurrences: max,
 				letter:         letter,

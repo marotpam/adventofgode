@@ -20,7 +20,7 @@ func TestCountValidPasswords2(t *testing.T) {
 2-9 c: ccccccccc
 `,
 			},
-			want: 2,
+			want: 1,
 		},{
 			name: "",
 			args: args{

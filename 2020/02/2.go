@@ -1,11 +1,11 @@
 package main
 
 func CountValidPasswords2(rawInput string) int {
-	passwords := parse(rawInput)
+	lines := parse(rawInput)
 
 	c := 0
-	for _, p := range passwords {
-		if p.isValid2() {
+	for _, l := range lines {
+		if l.password.isValid2(l.policy) {
 			c++
 		}
 	}
@@ -13,17 +13,13 @@ func CountValidPasswords2(rawInput string) int {
 	return c
 }
 
-func (p password) isValid2() bool {
-	hasInFirst := rune(p.password[p.policy.minOccurrences-1]) == p.policy.letter
-	hasInSecond := rune(p.password[p.policy.maxOccurrences-1]) == p.policy.letter
+func (p password) isValid2(policy policy) bool {
+	hasInFirst := p.hasRuneInPosition(policy.letter, policy.minOccurrences - 1)
+	hasInSecond := p.hasRuneInPosition(policy.letter, policy.maxOccurrences - 1)
 
-	if hasInFirst {
-		return !hasInSecond
-	}
+	return hasInFirst != hasInSecond
+}
 
-	if hasInSecond {
-		return !hasInFirst
-	}
-
-	return false
+func (p password) hasRuneInPosition(r rune, pos int) bool {
+	return rune(p[pos]) == r
 }
