@@ -1,4 +1,4 @@
-package main
+package _2019
 
 func CalculateSecondOptimalThrusterSequence(inputs []int) int {
 	perms := permutations([]int{5, 6, 7, 8, 9})

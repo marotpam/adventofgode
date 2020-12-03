@@ -1,4 +1,4 @@
-package main
+package _2020
 
 func CountValidPasswords2(rawInput string) int {
 	lines := parse(rawInput)

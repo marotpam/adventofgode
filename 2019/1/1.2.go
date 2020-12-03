@@ -1,4 +1,4 @@
-package main
+package _2019
 
 func CalculateSecondAmountOfFuel(masses []int) int {
 	result := 0

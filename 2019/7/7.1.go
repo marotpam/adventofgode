@@ -1,4 +1,4 @@
-package main
+package _2019
 
 const (
 	opJumpIfTrue  = 5

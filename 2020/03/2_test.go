@@ -1,4 +1,4 @@
-package main
+package _2020
 
 import "testing"
 

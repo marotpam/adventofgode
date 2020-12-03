@@ -1,4 +1,4 @@
-package main
+package _2019
 
 func CountFirstPasswords(a, b int) int {
 	count := 0

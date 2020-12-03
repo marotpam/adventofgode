@@ -1,4 +1,4 @@
-package main
+package _2020
 
 func MultiplyTreesInSlopes(rawInput string, slopes []slope) int {
 	c := 1

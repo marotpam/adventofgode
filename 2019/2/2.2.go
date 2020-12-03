@@ -1,4 +1,4 @@
-package main
+package _2019
 
 const WantedOutput = 19690720
 

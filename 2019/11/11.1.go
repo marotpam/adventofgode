@@ -1,4 +1,4 @@
-package main
+package _2019
 
 import (
 	"github.com/marotpam/adventofgode/2019/intcode"

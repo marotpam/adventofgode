@@ -1,4 +1,4 @@
-package main
+package _2020
 
 func FindMultiplicationFor3(numbers []int) int {
 	seen := make(map[int]int, len(numbers)*2)

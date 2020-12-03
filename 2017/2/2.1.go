@@ -1,4 +1,4 @@
-package main
+package _2017
 
 const maxUint = ^uint(0)
 const maxInt = int(maxUint >> 1)

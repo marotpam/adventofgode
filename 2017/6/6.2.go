@@ -1,4 +1,4 @@
-package main
+package _2017
 
 func CountRedistributionCyclesSecond(ints []int) int {
 	cycles := make(map[string]int, 0)

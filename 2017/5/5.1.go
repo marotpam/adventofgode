@@ -1,4 +1,4 @@
-package main
+package _2017
 
 func CountJumps(ints []int) int {
 	previous, jumps := 0, 0
