@@ -1,6 +1,9 @@
 package _2020
 
-import "strings"
+import (
+	"strconv"
+	"strings"
+)
 
 type seat struct {
 	row, column int
@@ -12,22 +15,15 @@ func (s seat) getID() int {
 
 func getSeat(s string) seat {
 	return seat{
-		row:    findSpot(s[0:7], 'F', 'B', 127),
-		column: findSpot(s[7:], 'L', 'R', 7),
+		row:    decode(s[0:7], "F", "B"),
+		column: decode(s[7:], "L", "R"),
 	}
 }
 
-func findSpot(chars string, lowerHalf, upperHalf int32, upperBound int) int {
-	lo, hi := 0, upperBound
-	for _, c := range chars {
-		switch c {
-		case lowerHalf:
-			hi = (hi + lo) / 2
-		case upperHalf:
-			lo = (lo + hi + 1) / 2
-		}
-	}
-	return lo
+func decode(chars, encodedZero, encodedOne string) int {
+	binaryNumber := strings.NewReplacer(encodedZero, "0", encodedOne, "1").Replace(chars)
+	parseInt, _ := strconv.ParseInt(binaryNumber, 2, 64)
+	return int(parseInt)
 }
 
 func GetHighestSeatID(rawInput string) int {
