@@ -1032,7 +1032,7 @@ iyr:2017
 
 hgt:173cm byr:1925 pid:070222017 iyr:2013 hcl:#ceb3a1 ecl:gry eyr:2024`,
 			},
-			want: 228,
+			want: 175,
 		},
 	}
 	for _, tt := range tests {

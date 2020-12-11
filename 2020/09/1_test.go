@@ -1043,7 +1043,7 @@ func TestFindNumber(t *testing.T) {
 68173111192064`,
 				preambleLength: 25,
 			},
-			want: 127,
+			want: 104054607,
 		},
 	}
 	for _, tt := range tests {
