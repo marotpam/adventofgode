@@ -23,11 +23,10 @@ func decodeAll(s string) []int {
 		return []int{int(r)}
 	}
 
-	pos := strings.Index(s, "X")
-	withZero := s[:pos] + "0" + s[pos+1:]
-	withOne := s[:pos] + "1" + s[pos+1:]
-
-	return append(decodeAll(withZero), decodeAll(withOne)...)
+	return append(
+		decodeAll(strings.Replace(s, "X", "0", 1)),
+		decodeAll(strings.Replace(s, "X", "1", 1))...,
+	)
 }
 
 func SumValuesInMemory2(rawInput string) int {
